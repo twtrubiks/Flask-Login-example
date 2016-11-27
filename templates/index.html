@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <link type="text/css" rel="stylesheet" href="static/stylesheets/bootstrap.min.css">
+    <script src="static/javascripts/jquery.min.js"></script>
+    <script src="static/javascripts/bootstrap.min.js"></script>
+    <script src="static/javascripts/fb_sdk.js"></script>
+    <script>
+       function logout() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    FB.logout(function (response) {});
+                }
+            });
+            location.replace("/logout");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Welcome To Index </h1>
+            <p>Example Use Flask</p>
+        </div>
+        {% if current_user.is_authenticated %}
+             {% if FBuser == "" %}
+                  <p>Hi {{ current_user.id }}!</p>
+              {% else %}
+                  <p>Hi {{ FBuser }}!</p>
+             {% endif %}
+        {% endif %}
+        <button type="button" onclick="logout();" class="btn btn-default"> Logout</button>
+    </div>
+</body>
+</html>
+

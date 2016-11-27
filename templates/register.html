@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <link type="text/css" rel="stylesheet" href="static/stylesheets/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="static/plugins/jquery.validate/jquery.validate.css">
+    <script src="static/javascripts/jquery.min.js"></script>
+    <script src="static/javascripts/bootstrap.min.js"></script>
+    <script src="static/plugins/jquery.validate/jquery.validate.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Register</h1>
+        <p>Example Use Flask</p>
+    </div>
+    <form action={{url_for("register")}} method="POST">
+        <p>{{error}}</p>
+        <div class="form-group">
+            <label for="InputUser">User Name</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="username">
+        </div>
+        <div class="form-group">
+            <label for="InputPassword">Password</label>
+            <input type="password" class="form-control"  name="password" id="password" placeholder="password">
+        </div>
+        <button type="submit" class="btn btn-default">Register</button>
+        <button type="button" onclick="location.replace('/login')" class="btn btn-link">LOGIN</button>
+    </form>
+    </div>
+    <script>
+        $( "form" ).validate({
+        rules: {
+            username: {
+                 required: true,
+                 UserNameExist: true
+               },
+            password: {
+                 required: true,
+               },
+            }
+       });
+        $.validator.addMethod('UserNameExist', function(value, element) {
+                var obj = {
+                    username: $('#username').val().replace(/\s/g, "")
+                };
+                var data_json = JSON.stringify(obj);
+                var isSuccess = true;
+                $.ajax({
+                    url: "/API_check_UserNameExist",
+                    type: "POST",
+                    data: data_json,
+                    dataType: "json",
+                    async: false,
+                    contentType: "application/json",
+                    success: function(data, textStatus, jqXHR) {
+                            if (data=="11") {
+                                isSuccess = false;
+                            }
+                    }
+                });
+                return isSuccess;
+            }, "UserName already exists.");
+    </script>
+</body>
+</html>
