@@ -1,7 +1,7 @@
 # Flask-Login-example
 Login register facebook Login - Python Flask
 
-* [Demo]()  
+* [Demo](https://youtu.be/5RlzqPz9oN8)  
 
 常看到別人的網站有登入、註冊、使用FACEBOOK登入，今天教你使用 Python [Flask](http://flask.pocoo.org/) 建立一個。
 

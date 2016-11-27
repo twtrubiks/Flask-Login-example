@@ -107,7 +107,6 @@ def register():
     username = request.form['username']
     password = request.form['password']
     newAccount = UserAccounts(UserName=username, Password=password, FBuserID="", FBAccessToken="")
-    db.session.rollback()
     db.session.add(newAccount)
     db.session.commit()
     return redirect(url_for("index"))
